@@ -3,8 +3,16 @@ import Item from "./Item";
 
 function ShoppingList({ items }) {
   const [selectedCategory, setCategory] = useState("All");
-  const displayedItems = items; //TODO doesn't work. dont know how to make work. tired and stupid.
-  //will be less tired tomorrow. hope for less stupid as well
+  
+  function filterList() {
+    let newList = [];
+    if (selectedCategory !== "All") {
+      newList = items.filter(item => item.category === selectedCategory);
+    }
+    else { newList = items;}
+    return newList;
+  }
+  
   
   function changeCategory(e) {
     setCategory(() => e.target.value);
@@ -22,7 +30,7 @@ function ShoppingList({ items }) {
         </select>
       </div>
       <ul className="Items">
-        {displayedItems.map((item) => (
+        {filterList().map((item) => (
             <Item key={item.id} name={item.name} category={item.category} />
         ))}
       </ul>
